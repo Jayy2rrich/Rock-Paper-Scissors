@@ -24,20 +24,7 @@ enum Sign{
             return "✌️"
         }
     }
-    func randomSign() -> Sign {
-        let sign = Int.random(in: 0...2)
-        if sign == 0 {
-            return .rock
-        }
-        else if sign == 1 {
-            return .paper
-            
-        }
-        else {
-            return .scissors
-            
-        }
-    }
+    
     func checkWin(opponent: Sign) -> GameState {
         switch (self, opponent) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
@@ -49,7 +36,21 @@ enum Sign{
         }
       }
 }
-    
+
+func randomSign() -> Sign {
+    let sign = Int.random(in: 0...2)
+    if sign == 0 {
+        return .rock
+    }
+    else if sign == 1 {
+        return .paper
+        
+    }
+    else {
+        return .scissors
+        
+    }
+}
 
 enum GameState {
     case start

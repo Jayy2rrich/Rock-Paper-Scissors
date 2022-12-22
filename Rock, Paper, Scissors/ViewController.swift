@@ -21,32 +21,49 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func PlayRock(_ sender: Any) {
+        play(sign: .rock)
     }
     
     @IBAction func PlayPaper(_ sender: Any) {
+        play(sign: .paper)
     }
     @IBAction func PlayScissors(_ sender: Any) {
+        play(sign: .scissors)
     }
     
     @IBAction func PlayAgainButton(_ sender: Any) {
+        updateUI(state: .start)
     }
     func updateUI(state: GameState) {
-      switch state {
-      case .win:
-        Status.text = "You win!"
-        view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-      case .lose:
-        Status.text = "You lose!"
-        view.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-      case .draw:
-        Status.text = "It's a draw!"
-        view.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-      case .start:
-          Status.text = "Rock, paper, or scissors?"
-          view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-          PlayAgain.isHidden = true
-          Rock.isEnabled = true
-          Paper.isEnabled = true
-          Scissor.isEnabled = true
-      }
+        switch state {
+        case .win:
+            Status.text = "You win!"
+            view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        case .lose:
+            Status.text = "You lose!"
+            view.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        case .draw:
+            Status.text = "It's a draw!"
+            view.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        case .start:
+            Status.text = "Rock, paper, or scissors?"
+            view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            PlayAgain.isHidden = true
+            Rock.isEnabled = true
+            Paper.isEnabled = true
+            Scissor.isEnabled = true
+            AppSign.text = "🤖"
+        }
     }
+    func play(sign: Sign){
+       
+        var computer = randomSign()
+        var state = sign.checkWin(opponent: computer)
+        
+        updateUI(state: state)
+        PlayAgain.isHidden = false
+        AppSign.text = computer.gesture
+        
+        }
+    
+}
